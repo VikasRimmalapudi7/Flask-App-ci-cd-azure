@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 # Establish a connection to the database
 conn = psycopg2.connect(
-    host="webappdb.postgres.database.azure.com",
+    host="webappflaskdb.postgres.database.azure.com",
     database="dbname",
     user="server",
     password="Vikas@1379375"
