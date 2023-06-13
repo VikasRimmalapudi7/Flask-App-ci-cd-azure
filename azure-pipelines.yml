@@ -5,7 +5,7 @@ jobs:
 - job: BuildAndTest
   displayName: 'Build and Test'
   pool:
-    name: default
+    name: Default
     demands: vikas
 
   steps:
