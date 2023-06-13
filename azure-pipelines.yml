@@ -5,7 +5,8 @@
 
 trigger:
 - master
-
+agent:
+-vikas
 pool:
   vmImage: ubuntu-latest
 strategy:
