@@ -22,7 +22,7 @@ variables:
 steps:
 - script: |
     
-    python --version
+    echo python --version
     pip install --upgrade pip
     pip install -r requirements.txt
     flask run
