@@ -1,34 +1,12 @@
 trigger:
   branches:
     include:
-      - master
-
-pr:
-  branches:
-    include:
-      - '*'
+      - main
 
 pool:
-  name: Default
-  demands:
-  - agent.name -equals vikas
-
-variables:
-  - name: FLASK_APP
-    value: 'app.py'
-  - name: FLASK_ENV
-    value: 'production'
+  vmImage: 'ubuntu-latest'
 
 steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.10.0'
-    addToPath: true
-
 - script: |
-    python -m venv env
-    .\env\Scripts\activate
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
-    python -m flask run
-  displayName: 'Run Flask application'
+    echo "Hello, Azure DevOps!"
+  displayName: 'Print Message'
