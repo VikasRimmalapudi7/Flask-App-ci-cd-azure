@@ -1,25 +1,27 @@
 trigger:
-  - master
+  branches:
+    include:
+      - master
 
-jobs:
-- job: BuildAndTest
-  displayName: 'Build and Test'
-  pool:
-    name: Default
-    demands: vikas
+pr:
+  branches:
+    include:
+      - '*'
 
-  steps:
-    - task: UsePythonVersion@0
-      inputs:
-        versionSpec: '$(python.version)'
-      displayName: 'Use Python $(python.version)'
+pool:
+  vmImage: 'ubuntu-latest'
 
-    - script: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-      displayName: 'Install dependencies'
+variables:
+  - name: FLASK_APP
+    value: 'app.py'
+  - name: FLASK_ENV
+    value: 'production'
 
-    - script: |
-        pip install pytest pytest-azurepipelines
-        pytest
-      displayName: 'pytest'
+steps:
+- script: |
+    python -m venv env
+    source env/bin/activate
+    pip install --upgrade pip
+    pip install -r requirements.txt
+    flask run
+  displayName: 'Run Flask application'
