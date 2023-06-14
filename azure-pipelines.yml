@@ -20,10 +20,15 @@ variables:
     value: 'production'
 
 steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+
 - script: |
-    
-    echo python --version
-    pip install --upgrade pip
+    python -m venv env
+    .\env\Scripts\activate
+    python -m pip install --upgrade pip
     pip install -r requirements.txt
-    flask run
+    python -m flask run
   displayName: 'Run Flask application'
