@@ -12,9 +12,9 @@ steps:
     python -m venv env
     .\env\Scripts\activate
     python -m pip install --upgrade pip
-    echo installed pip
+    echo "installed pip"
     pip install -r requirements.txt
-    echo installed reqs
+    echo "installed reqs"
     python app.py
-    echo running flask
+    echo "running flask"
   displayName: 'Print Message'
