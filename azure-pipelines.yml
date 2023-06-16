@@ -13,10 +13,10 @@ steps:
     echo "Virtual environment created"
     .\env\Scripts\activate
     echo "Virtual environment activated"
-    python -m pip install --upgrade pip
+    .\env\Scripts\python -m pip install --upgrade pip
     echo "Upgraded pip"
-    pip install -r requirements.txt
+    .\env\Scripts\pip install -r requirements.txt
     echo "Installed requirements"
-    python app.py
+    .\env\Scripts\python app.py
     echo "Running Flask application"
   displayName: 'Print Message'
