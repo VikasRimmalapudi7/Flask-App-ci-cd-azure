@@ -4,7 +4,7 @@ trigger:
       - master
 
 pool:
-   name:Default
+  name: Default
 steps:
 - script: |
     python --version
