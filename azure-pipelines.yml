@@ -9,6 +9,14 @@ pool:
 steps:
 - script: |
     echo "Hello, Azure DevOps!"
+    python -m venv env
+    echo "Virtual environment created"
+    .\env\Scripts\activate
+    echo "Virtual environment activated"
+    python -m pip install --upgrade pip
+    echo "Upgraded pip"
+    pip install -r requirements.txt
+    echo "Installed requirements"
     python app.py
-    echo "running flask"
+    echo "Running Flask application"
   displayName: 'Print Message'
