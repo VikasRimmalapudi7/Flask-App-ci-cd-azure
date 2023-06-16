@@ -5,6 +5,7 @@ trigger:
 
 pool:
   name: Default
+  
 steps:
 - script: |
     python --version
