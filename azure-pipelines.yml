@@ -8,6 +8,10 @@ pool:
   
 steps:
 - script: |
+    echo "$(Build.SourcesDirectory)"
+    echo "$(Build.ArtifactStagingDirectory)"
+  displayName: 'Print Directories'
+- script: |
     python --version
     python -m venv env
     pip install --upgrade pip
@@ -17,10 +21,8 @@ steps:
 - task: CopyFiles@2
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
-    echo '(Build.SourcesDirectory)'
     contents: 'app.py'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
-    echo '$(Build.ArtifactStagingDirectory)'
   displayName: 'Copy app.py'
 
 - task: ArchiveFiles@2
