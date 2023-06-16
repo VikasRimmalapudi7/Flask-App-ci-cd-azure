@@ -7,8 +7,16 @@ pool:
   name: Default
 
 steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'  # Specify the Python version you want to use
+    addToPath: true
+
 - script: |
-    echo "Hello, Azure DevOps!"
     pip install -r requirements.txt
+  displayName: 'Install dependencies'
+
+- script: |
     python app.py
-  displayName: 'Print Message'
+  displayName: 'Run Flask application'
+
