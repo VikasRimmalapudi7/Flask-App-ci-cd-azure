@@ -1,3 +1,4 @@
+
 trigger:
   branches:
     include:
@@ -5,8 +6,12 @@ trigger:
 
 pool:
   name: Default
-
+  
 steps:
+- script: |
+    echo "$(Build.SourcesDirectory)"
+    echo "$(Build.ArtifactStagingDirectory)"
+  displayName: 'Print Directories'
 - script: |
     python --version
     python -m venv env
@@ -14,16 +19,29 @@ steps:
     pip install -r requirements.txt
   displayName: 'Setup Python environment'
 
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'app.py'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy app.py'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/app.zip'
+  displayName: 'Archive app.py'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/app.zip'
+    ArtifactName: 'FlaskApp'
+    publishLocation: 'Container'
+  displayName: 'Publish Flask App artifact'
+
 - script: |
     echo 'Deploying Flask App...'
     python app.py
   displayName: 'Deploy Flask App'
-
-- task: AzureWebApp@1
-  inputs:
-    azureSubscription: '663de6ca-2c5f-43fb-8b49-32df23affad7'
-    appName: 'myWebApp66099'
-    package: '$(Build.SourcesDirectory)'
-    deployToSlotOrASE: false
-    resourceGroupName: 'demo_rgx'
-  displayName: 'Deploy to Azure Web App'
